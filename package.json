@@ -39,6 +39,10 @@
     "bulk sms",
     "sms marketing"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Acetelecom/n8n-nodes-smsenmasse"
+  },
   "license": "MIT",
   "devDependencies": {
     "@n8n/node-cli": "^0.35.1",
