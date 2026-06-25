@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-smsenmasse",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "n8n community node for SMS en Masse — send SMS campaigns and manage your account.",
   "main": "index.js",
   "files": [
@@ -49,6 +49,9 @@
     "url": "https://github.com/Acetelecom/n8n-nodes-smsenmasse"
   },
   "license": "MIT",
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
   "devDependencies": {
     "@n8n/node-cli": "^0.35.1",
     "@types/jest": "^29.5.14",

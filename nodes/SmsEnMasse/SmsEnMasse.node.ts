@@ -163,9 +163,7 @@ export class SmsEnMasse implements INodeType {
         displayName: 'Limit',
         name: 'limit',
         type: 'number',
-								typeOptions: {
-									minValue: 1,
-								},
+        typeOptions: { minValue: 1 },
         default: 50,
         displayOptions: { show: { operation: ['listCampaigns'] } },
         description: 'Max number of results to return',
@@ -175,17 +173,10 @@ export class SmsEnMasse implements INodeType {
 
   async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = this.getInputData()
-    const credentials = await this.getCredentials('smsEnMasseApi')
-    const apiKey = credentials.apiKey as string
     const returnData: INodeExecutionData[] = []
 
     for (let i = 0; i < items.length; i++) {
       const operation = this.getNodeParameter('operation', i) as string
-
-      const headers: Record<string, string> = {
-        'X-API-KEY': apiKey,
-        'Content-Type': 'application/json',
-      }
 
       if (operation === 'sendCampaignSms') {
         const recipients = this.getNodeParameter('recipients', i) as string
@@ -200,10 +191,10 @@ export class SmsEnMasse implements INodeType {
         if (extra.identifier) body.identifier = extra.identifier
         if (extra.webhookUrl) body.webhookUrl = extra.webhookUrl
 
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'smsEnMasseApi', {
           method: 'POST',
           url: `${API_BASE}/sms`,
-          headers,
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
           returnFullResponse: true,
           ignoreHttpStatusErrors: true,
@@ -230,10 +221,9 @@ export class SmsEnMasse implements INodeType {
       }
 
       else if (operation === 'getBalance') {
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'smsEnMasseApi', {
           method: 'GET',
           url: `${API_BASE}/sms/balance`,
-          headers,
           returnFullResponse: true,
           ignoreHttpStatusErrors: true,
         })
@@ -251,11 +241,10 @@ export class SmsEnMasse implements INodeType {
         const page  = this.getNodeParameter('page', i) as number
         const limit = this.getNodeParameter('limit', i) as number
 
-        const response = await this.helpers.httpRequest({
+        const response = await this.helpers.httpRequestWithAuthentication.call(this, 'smsEnMasseApi', {
           method: 'GET',
           url: `${API_BASE}/sms`,
           qs: { page, limit },
-          headers,
           returnFullResponse: true,
           ignoreHttpStatusErrors: true,
         })

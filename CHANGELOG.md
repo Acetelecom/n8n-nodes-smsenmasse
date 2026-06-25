@@ -1,5 +1,11 @@
 # Changelog — SMS en Masse n8n Community Node
 
+## 1.0.9
+
+- Use `httpRequestWithAuthentication` instead of manual `httpRequest` (required by n8n scanner)
+- Add `authenticate` and `test` properties to credentials (credential test support)
+- Add `peerDependencies: { "n8n-workflow": "*" }` to package.json
+
 ## 1.0.8
 
 - Add `author` field in `package.json` (required by n8n Creator Portal)
