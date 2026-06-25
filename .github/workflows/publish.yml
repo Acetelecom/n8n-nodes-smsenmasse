@@ -1,0 +1,67 @@
+# Publishes the n8n community node package to npm on every version tag push.
+#
+# npm provenance requires the source repository to be PUBLIC.
+# This repository is dedicated to the n8n node and is public for that reason.
+#
+# ─── TAG CONVENTION ────────────────────────────────────────────────────────────
+#
+# This workflow triggers on tags matching "v*.*.*" (e.g. v1.0.7).
+#
+# ─── RELEASE PROCESS ───────────────────────────────────────────────────────────
+#
+# 1. Bump the version in package.json and update CHANGELOG.md.
+# 2. Commit, then create a tag:
+#
+#      git tag v1.0.7
+#      git push origin v1.0.7
+#
+# ─── ONE-TIME SETUP (npm Trusted Publisher — no long-lived secrets) ────────────
+#
+# 1. Log in to npmjs.com and open the n8n-nodes-smsenmasse package settings.
+# 2. Under "Publish access" → "Trusted Publishers", click "Add a publisher".
+# 3. Select GitHub Actions and fill in:
+#      Repository owner:  Acetelecom
+#      Repository name:   n8n-nodes-smsenmasse
+#      Workflow name:     publish.yml
+#      Environment:       (leave blank)
+
+name: Publish n8n community node
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to npm with provenance
+        run: npm publish --provenance --access public

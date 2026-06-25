@@ -1,0 +1,54 @@
+{
+  "name": "n8n-nodes-smsenmasse",
+  "version": "1.0.7",
+  "description": "n8n community node for SMS en Masse — send SMS campaigns and manage your account.",
+  "main": "index.js",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy-icons",
+    "copy-icons": "cp -r nodes/**/*.png dist/nodes/",
+    "dev": "tsc --watch",
+    "lint": "n8n-node lint",
+    "lintfix": "n8n-node lint --fix",
+    "test": "jest"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/SmsEnMasseApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/SmsEnMasse/SmsEnMasse.node.js"
+    ]
+  },
+  "keywords": [
+    "n8n-community-node-package",
+    "sms",
+    "sms en masse",
+    "smsenmasse",
+    "campaign",
+    "campagne sms",
+    "marketing sms",
+    "envoi sms",
+    "text message",
+    "bulk sms",
+    "sms marketing"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@n8n/node-cli": "^0.35.1",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "n8n-workflow": "^1.0.0",
+    "ts-jest": "^29.4.11",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
