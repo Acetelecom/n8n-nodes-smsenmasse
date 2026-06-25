@@ -1,5 +1,10 @@
 # Changelog — SMS en Masse n8n Community Node
 
+## 1.0.8
+
+- Add `author` field in `package.json` (required by n8n Creator Portal)
+- Migrate to dedicated public repository for npm provenance support
+
 ## 1.0.7
 
 - Add Jest test suite (`npm run test`) required for n8n Creator Portal submission

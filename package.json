@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-smsenmasse",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "n8n community node for SMS en Masse — send SMS campaigns and manage your account.",
   "main": "index.js",
   "files": [
@@ -39,6 +39,11 @@
     "bulk sms",
     "sms marketing"
   ],
+  "author": {
+    "name": "SMS en Masse",
+    "email": "contact@smsenmasse.fr",
+    "url": "https://www.smsenmasse.fr"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Acetelecom/n8n-nodes-smsenmasse"
